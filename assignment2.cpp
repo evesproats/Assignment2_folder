@@ -40,48 +40,40 @@ int main()
   while(std::getline(inputFile, line))
   {
     std::vector<std::string> temp_row;  // Temporary vector for the current row - needs splitting into components
-    
     std::regex space_delimiter(" {4}|\\t");  // Setting the delimiter to be 4 spaces or a tab character
 
     // Use regex to split the line by multiple spaces and extract the element before it
     std::sregex_token_iterator it(line.begin(), line.end(), space_delimiter, -1);
     std::sregex_token_iterator end;  
 
-    while (it != end) {  // Loop through the tokens
-        std::cout << (*it) << std::endl;
-
-        temp_row.push_back(*it); // Adds the value the iterator is pointing to and moves it onto the next token
-        no_data_entries+=1;
-        it++;
+    while (it != end) 
+    {  // Loop through the tokens
+      temp_row.push_back(*it); // Adds the value the iterator is pointing to and moves it onto the next token
+      no_data_entries+=1;
+      it++;
     }
     matrix.push_back(temp_row);  // Add each row to the matrix
   }
   inputFile.close();  // Close the file
-  // Printing using an iterator
+
+  // Printing using an iterator which cuts the first 3 characters of the title
   std::vector<std::vector<std::string>>::iterator matrix_begin{matrix.begin()};
   std::vector<std::vector<std::string>>::iterator matrix_end{matrix.end()};
+  std::vector<std::vector<std::string>>::iterator matrix_iterator;
+
+  std::vector<std::string> row_vector;
 
   std::cout<<"Full book list:"<<std::endl;
-  // Iterate over the rows
-  //  for(auto row_iterator=matrix_begin; row_iterator!=matrix_end; ++row_iterator)  
-    for (int i=0; i<matrix.size(); i++)
-    {
-
-    std::cout << "Row contents: " << std::endl;
-
-    //for (const auto &element : *row_iterator) 
-    for (int j=0; j<matrix[i].size(); j++)
-    {
-      std::string element = matrix[i][j]; 
-      std::cout << element << " | " << std::endl;
-    }
-    //std::cout << std::endl;
-    
-    // Iterate over the elements in the rows
-    //for(auto element_iterator=row_iterator->begin(); element_iterator!=row_iterator->end(); ++element_iterator) 
-      //{
-       // std::cout<<*element_iterator<<" | "<<std::endl; 
-      //}
+  for(matrix_iterator=matrix_begin; matrix_iterator<matrix_end; ++matrix_iterator)
+  { // Iterates through the rows of the books data file
+    row_vector = *matrix_iterator;
+    std::vector<std::string>::iterator row_begin{row_vector.begin()};
+    std::vector<std::string>::iterator row_end{row_vector.end()};
+    std::vector<std::string>::iterator row_iterator;
+    for(row_iterator=row_begin; row_iterator<row_end; ++row_iterator)
+      { // Iterates through the elements of the row to output the individual data entries
+      std::cout<<*row_iterator<<std::endl;
+      }
   }
 
   std::cout<<"The number of data entries is "<<no_data_entries<<".";
