@@ -48,6 +48,13 @@
         "typeinfo": "cpp",
         "unordered_map": "cpp",
         "variant": "cpp",
-        "vector": "cpp"
+        "vector": "cpp",
+        "__hash_table": "cpp",
+        "__tree": "cpp",
+        "deque": "cpp",
+        "map": "cpp",
+        "regex": "cpp",
+        "queue": "cpp",
+        "stack": "cpp"
     }
 }
